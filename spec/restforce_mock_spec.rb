@@ -56,6 +56,17 @@ describe RestforceMock do
         }.to raise_error Faraday::ResourceNotFound, /Provided external ID field does not/
       end
     end
+
+    describe "api_post" do
+      it "mock out POST request" do
+        values = { Name: "Name here" }
+        body = client.api_post("/sobjects/Contact", values)
+        id= body.body["id"]
+
+        s = RestforceMock::Sandbox.send(:storage)
+        expect(s["Contact"][id]).to eq values
+      end
+    end
   end
 
 end
