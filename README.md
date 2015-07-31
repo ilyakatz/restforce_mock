@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ilyakatz/restforce_mock.svg?branch=master)](https://travis-ci.org/ilyakatz/restforce_mock)
+
 # RestforceMock
 
 Mock out [Restforce](https://github.com/ejholmes/restforce) in tests
