@@ -1,16 +1,12 @@
 require "restforce_mock/version"
+require "restforce_mock/sandbox"
 require "restforce"
 
 module RestforceMock
   class Client
 
     include ::Restforce::Concerns::API
-
-    def initialize
-      @storage = Hash.new do |hash, object|
-        hash[object]={}
-      end
-    end
+    include RestforceMock::Sandbox
 
     def api_patch(url, attrs)
       url=~/sobjects\/(.+)\/(.+)/
@@ -34,21 +30,7 @@ module RestforceMock
       end
     end
 
-    def add_object(name, id, values)
-      if @storage[name][id].present?
-        raise "Object #{name} with #{id} exists"
-      end
-      @storage[name].merge!({ id  => values })
-    end
-
-    def update_object(name, id, attrs)
-      current = @storage[name][id]
-      @storage[name][id] = current.merge(attrs)
-    end
-
-    def storage
-      @storage
-    end
+    private
 
     class Body
       def initialize(id)
@@ -60,5 +42,4 @@ module RestforceMock
       end
     end
   end
-  # Your code goes here...
 end
