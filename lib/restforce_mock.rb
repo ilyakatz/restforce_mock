@@ -25,7 +25,7 @@ module RestforceMock
     end
 
     def validate_presence!(object, id)
-      unless storage[object][id]
+      unless RestforceMock::Sandbox.storage[object][id]
         raise Faraday::Error::ResourceNotFound.new("Provided external ID field does not exist or is not accessible: #{id}")
       end
     end

@@ -8,9 +8,17 @@ module RestforceMock
       storage[name].merge!({ id  => values })
     end
 
+    def add_object(name, id, values)
+      RestforceMock::Sandbox.add_object(name, id, values)
+    end
+
     def self.update_object(name, id, attrs)
       current = storage[name][id]
       storage[name][id] = current.merge(attrs)
+    end
+
+    def update_object(name, id, attrs)
+      RestforceMock::Sandbox.update_object(name, id, attrs)
     end
 
     def self.reset!
