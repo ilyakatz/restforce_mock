@@ -9,7 +9,11 @@ Mock out [Restforce](https://github.com/ejholmes/restforce) in tests
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'restforce_mock'
+group :test do
+
+  gem 'restforce_mock'
+
+end
 ```
 
 And then execute:
@@ -22,7 +26,28 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To mock out Restforce global in your test environment
+
+```ruby
+Restforce::Client = RestforceMoc::Client
+```
+
+This will direct all calls to `Restforce to RestforceMock`. Test as usual.
+
+### Mimicking Salesforce data
+
+To mimic Salesforce database, add some data to the RestfoceMock sandbox
+
+```ruby
+  RestforceMock::Sandbox.add_object("Contact", "HGUKK674J79HjsH", { Name__c: "John" })
+```
+
+RestforceMock sandbox is *shared across all your tests* (same way as real Salesforce instace would be), hence,
+after completion of tests make sure to clean up if necessary
+
+```ruby
+  RestforceMock::Sandbox.reset!
+```
 
 ## Development
 
