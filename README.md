@@ -29,14 +29,14 @@ Or install it yourself as:
 To mock out Restforce global in your test environment
 
 ```ruby
-Restforce::Client = RestforceMoc::Client
+Restforce::Client = RestforceMock::Client
 ```
 
-This will direct all calls to `Restforce to RestforceMock`. Test as usual.
+This will direct all calls to `Restforce` to `RestforceMock`. Test as usual.
 
 ### Mimicking Salesforce data
 
-To mimic Salesforce database, add some data to the RestfoceMock sandbox
+To mimic Salesforce database, add some data to the `RestfoceMock` sandbox
 
 ```ruby
   RestforceMock::Sandbox.add_object("Contact", "HGUKK674J79HjsH", { Name__c: "John" })
