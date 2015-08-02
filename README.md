@@ -61,7 +61,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 
 ## Dedication
 
-This gem is dedicated to memory of Adrian P.
+This gem is dedicated to the memory of Adrian P.
 
 ## License
 
