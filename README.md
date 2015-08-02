@@ -42,7 +42,7 @@ To mimic Salesforce database, add some data to the RestfoceMock sandbox
   RestforceMock::Sandbox.add_object("Contact", "HGUKK674J79HjsH", { Name__c: "John" })
 ```
 
-RestforceMock sandbox is *shared across all your tests* (same way as real Salesforce instace would be), hence,
+RestforceMock sandbox is **shared across all your tests** (same way as real Salesforce instace would be), hence,
 after completion of tests make sure to clean up if necessary
 
 ```ruby
