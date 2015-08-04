@@ -28,7 +28,7 @@ describe RestforceMock do
     it 'should update values in sandbox' do
       name = "Contact"
       id = "some id"
-      values = { Name: "Name here" }
+      values = { Name: "Name here", Location: "Somewhere"}
       RestforceMock::Client.new.add_object(name, id, values)
       RestforceMock::Sandbox.update_object(name, id, { Location: "None" })
 

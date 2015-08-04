@@ -14,6 +14,7 @@ module RestforceMock
 
     def self.update_object(name, id, attrs)
       current = storage[name][id]
+      validate_all_present_fields!(current, attrs)
       storage[name][id] = current.merge(attrs)
     end
 
@@ -33,6 +34,14 @@ module RestforceMock
     def self.initialize
       Hash.new do |hash, object|
         hash[object]={}
+      end
+    end
+
+    def self.validate_all_present_fields!(current, attrs)
+      missing = attrs.keys - current.keys
+      unless missing.length == 0
+        raise Faraday::Error::ResourceNotFound.new("INVALID_FIELD_FOR_INSERT_UPDATE: Unable to create/update fields: #{missing}. Please check the security settings of this field and verify that it is read/write for your profile or permission set")
+
       end
     end
 
