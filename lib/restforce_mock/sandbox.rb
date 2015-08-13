@@ -1,7 +1,7 @@
 module RestforceMock
   module Sandbox
 
-    def self.add_object(name, id, values, params = {})
+    def self.add_object(name, id, values)
       if storage[name] && !storage[name][id].nil?
         raise "Object #{name} with #{id} exists"
       end
