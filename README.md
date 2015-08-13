@@ -49,6 +49,13 @@ after completion of tests make sure to clean up if necessary
   RestforceMock::Sandbox.reset!
 ```
 
+#### Required fields
+
+```ruby
+   RestforceMock::Sandbox.add_required(
+    "Object__c", [:Section_Name__c, :Program__c ])
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

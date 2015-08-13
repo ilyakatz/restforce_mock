@@ -8,6 +8,12 @@ module RestforceMock
       storage[name].merge!({ id  => values })
     end
 
+    def self.add_required(name, keys)
+      if keys
+        storage[:required][name] = keys
+      end
+    end
+
     def add_object(name, id, values)
       RestforceMock::Sandbox.add_object(name, id, values)
     end
@@ -32,7 +38,10 @@ module RestforceMock
 
     #Private
     def self.initialize
-      Hash.new do |hash, object|
+      storage = Hash.new do |hash, object|
+        hash[object]={}
+      end
+      storage[:required] = Hash.new do |hash, object|
         hash[object]={}
       end
     end
@@ -40,8 +49,10 @@ module RestforceMock
     def self.validate_all_present_fields!(current, attrs)
       missing = attrs.keys - current.keys
       unless missing.length == 0
-        raise Faraday::Error::ResourceNotFound.new("INVALID_FIELD_FOR_INSERT_UPDATE: Unable to create/update fields: #{missing}. Please check the security settings of this field and verify that it is read/write for your profile or permission set")
-
+        raise Faraday::Error::ResourceNotFound.new(
+          "INVALID_FIELD_FOR_INSERT_UPDATE: Unable to create/update fields: #{missing}." +
+          " Please check the security settings of this field and verify that it is " +
+          "read/write for your profile or permission set")
       end
     end
 
