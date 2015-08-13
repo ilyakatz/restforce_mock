@@ -30,7 +30,8 @@ module RestforceMock
 
       missing = RestforceMock::Sandbox.storage[:required][sobject] - attrs.keys
       if missing.length > 0
-        raise Faraday::Error::ResourceNotFound.new("REQUIRED_FIELD_MISSING: Required fields are missing: #{missing}")
+        raise Faraday::Error::ResourceNotFound.new(
+          "REQUIRED_FIELD_MISSING: Required fields are missing: #{missing}")
       end
     end
 
