@@ -20,8 +20,18 @@ module RestforceMock
       url=~/sobjects\/(.+)/
       sobject = $1
       id = SecureRandom.urlsafe_base64(13) #duplicates possible
+      validate_requires!(sobject, attrs)
       add_object(sobject, id, attrs)
       return Body.new(id)
+    end
+
+    def validate_requires!(sobject, attrs)
+      return unless RestforceMock::Sandbox.storage[:required][sobject]
+
+      missing = RestforceMock::Sandbox.storage[:required][sobject] - attrs.keys
+      if missing.length > 0
+        raise Faraday::Error::ResourceNotFound.new("REQUIRED_FIELD_MISSING: Required fields are missing: #{missing}")
+      end
     end
 
     def validate_presence!(object, id)

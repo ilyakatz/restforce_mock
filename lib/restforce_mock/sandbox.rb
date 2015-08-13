@@ -1,11 +1,17 @@
 module RestforceMock
   module Sandbox
 
-    def self.add_object(name, id, values)
+    def self.add_object(name, id, values, params = {})
       if storage[name] && !storage[name][id].nil?
         raise "Object #{name} with #{id} exists"
       end
       storage[name].merge!({ id  => values })
+    end
+
+    def self.add_required(name, keys)
+      if keys
+        storage[:required][name] = keys
+      end
     end
 
     def add_object(name, id, values)
@@ -32,7 +38,10 @@ module RestforceMock
 
     #Private
     def self.initialize
-      Hash.new do |hash, object|
+      storage = Hash.new do |hash, object|
+        hash[object]={}
+      end
+      storage[:required] = Hash.new do |hash, object|
         hash[object]={}
       end
     end
