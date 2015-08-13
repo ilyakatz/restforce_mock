@@ -66,7 +66,7 @@ Style/BarePercentLiterals:
   - bare_percent
 Style/BracesAroundHashParameters:
   Description: Enforce braces style around hash parameters.
-  Enabled: true
+  Enabled: false
   EnforcedStyle: no_braces
   SupportedStyles:
   - braces
@@ -606,7 +606,7 @@ Style/SymbolArray:
   Enabled: false
 Style/ExtraSpacing:
   Description: Do not use unnecessary spacing.
-  Enabled: true
+  Enabled: false
 Style/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
