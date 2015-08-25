@@ -59,6 +59,9 @@ module RestforceMock
       storage[:required] = Hash.new do |hash, object|
         hash[object]={}
       end
+      storage[:schema] = Hash.new do |hash, object|
+        hash[object]={}
+      end
     end
 
     def self.validate_all_present_fields!(current, attrs)
