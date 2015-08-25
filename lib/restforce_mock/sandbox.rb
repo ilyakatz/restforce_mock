@@ -49,7 +49,7 @@ module RestforceMock
     end
 
     def self.client
-      client = ::Restforce.new
+      ::Restforce.new
     end
 
     def self.initialize
