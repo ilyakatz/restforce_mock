@@ -37,6 +37,21 @@ module RestforceMock
     end
 
     #Private
+    def self.update_schema(object_name)
+      s = client.describe(object_name)
+      object_schema = {}
+      s["fields"].each do |field|
+        object_schema[field["name"]]= {
+          type: field["type"]
+        }
+      end
+      storage[:schema][object_name] = object_schema
+    end
+
+    def self.client
+      client = ::Restforce.new
+    end
+
     def self.initialize
       storage = Hash.new do |hash, object|
         hash[object]={}
