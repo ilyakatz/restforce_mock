@@ -1,5 +1,6 @@
 require "restforce_mock/version"
 require "restforce_mock/sandbox"
+require "restforce_mock/schema_manager"
 require "restforce"
 
 module RestforceMock
