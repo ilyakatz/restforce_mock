@@ -28,7 +28,7 @@ describe RestforceMock do
     it 'should update values in sandbox' do
       name = "Contact"
       id = "some id"
-      values = { Name: "Name here" }
+      values = { Name: "Name here", Location: "Somewhere"}
       RestforceMock::Client.new.add_object(name, id, values)
       RestforceMock::Sandbox.update_object(name, id, { Location: "None" })
 
@@ -65,6 +65,16 @@ describe RestforceMock do
 
         s = RestforceMock::Sandbox.send(:storage)
         expect(s["Contact"][id]).to eq values
+      end
+
+      it "validates required fields" do
+        RestforceMock::Sandbox.add_required(
+          "Object__c", [:Section_Name__c, :Program__c ])
+
+        values = { Name: "Name here" }
+        expect {
+          client.api_post("/sobjects/Object__c", values)
+        }.to raise_error Faraday::ResourceNotFound, /Required fields are missing/
       end
     end
   end

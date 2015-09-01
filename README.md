@@ -29,24 +29,31 @@ Or install it yourself as:
 To mock out Restforce global in your test environment
 
 ```ruby
-Restforce::Client = RestforceMoc::Client
+Restforce::Client = RestforceMock::Client
 ```
 
-This will direct all calls to `Restforce to RestforceMock`. Test as usual.
+This will direct all calls to `Restforce` to `RestforceMock`. Test as usual.
 
 ### Mimicking Salesforce data
 
-To mimic Salesforce database, add some data to the RestfoceMock sandbox
+To mimic Salesforce database, add some data to the `RestfoceMock` sandbox
 
 ```ruby
   RestforceMock::Sandbox.add_object("Contact", "HGUKK674J79HjsH", { Name__c: "John" })
 ```
 
-RestforceMock sandbox is *shared across all your tests* (same way as real Salesforce instace would be), hence,
+RestforceMock sandbox is **shared across all your tests** (same way as real Salesforce instace would be), hence,
 after completion of tests make sure to clean up if necessary
 
 ```ruby
   RestforceMock::Sandbox.reset!
+```
+
+#### Required fields
+
+```ruby
+   RestforceMock::Sandbox.add_required(
+    "Object__c", [:Section_Name__c, :Program__c ])
 ```
 
 ## Development
@@ -61,7 +68,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 
 ## Dedication
 
-This gem is dedicated to memory of Adrian P.
+This gem is dedicated to the memory of Adrian P.
 
 ## License
 
