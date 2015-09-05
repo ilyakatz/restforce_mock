@@ -1,6 +1,6 @@
 begin
   require "yaml"
-rescue
+rescue LoadError
 end
 
 module RestforceMock
