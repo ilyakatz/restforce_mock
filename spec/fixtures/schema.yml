@@ -1,0 +1,14 @@
+---
+Contact:
+  Id:
+    :type: id
+  IsDeleted:
+    :type: boolean
+  MasterRecordId:
+    :type: reference
+  AccountId:
+    :type: reference
+  LastName:
+    :type: string
+  FirstName:
+    :type: string

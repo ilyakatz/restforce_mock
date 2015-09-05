@@ -40,5 +40,12 @@ module RestforceMock
       File.open(file, 'w') {|f| f.write schema.to_yaml }
     end
 
+    def load_schema(file)
+      if file.nil?
+        raise "Schema file is not defined"
+      end
+      thing = YAML.load_file(file)
+    end
+
   end
 end
