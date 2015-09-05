@@ -2,8 +2,28 @@ require 'spec_helper'
 
 describe RestforceMock do
   let(:client) { RestforceMock::Client.new }
-  it 'has a version number' do
-    expect(RestforceMock::VERSION).not_to be nil
+
+  describe "#configure" do
+    before do
+      RestforceMock.reset
+    end
+    it "set schema file" do
+      RestforceMock.configure do |config|
+        config.schema_file = "tmp"
+      end
+
+      expect( RestforceMock.configuration.schema_file ).to eq "tmp"
+    end
+
+    it "doesn't set schema file by default" do
+      expect( RestforceMock.configuration.schema_file ).to be_nil
+    end
+  end
+
+  describe "version" do
+    it 'has a version number' do
+      expect(RestforceMock::VERSION).not_to be nil
+    end
   end
 
   context do
