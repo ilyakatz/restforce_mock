@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe RestforceMock::Sandbox do
+  context "get_object" do
+    it "gets the object" do
+      name = "Contact"
+      id = "some id"
+      values = { Name: "Name here" }
+      RestforceMock::Sandbox.add_object(name, id, values)
+
+      expect(RestforceMock::Sandbox.get_object(name, id)).to eq values
+    end
+  end
+
   context do
     before do
       RestforceMock::Sandbox.reset!
