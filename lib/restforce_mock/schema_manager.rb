@@ -26,7 +26,8 @@ module RestforceMock
       object_schema = {}
       s["fields"].each do |field|
         object_schema[field["name"]]= {
-          type: field["type"]
+          type: field["type"],
+          nillable: field["nillable"]
         }
       end
       object_schema

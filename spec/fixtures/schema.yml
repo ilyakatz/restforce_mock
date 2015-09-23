@@ -2,13 +2,19 @@
 Contact:
   Id:
     :type: id
+    :nillable: false
   IsDeleted:
     :type: boolean
+    :nillable: false
   MasterRecordId:
     :type: reference
+    :nillable: true
   AccountId:
     :type: reference
+    :nillable: true
   LastName:
     :type: string
+    :nillable: false
   FirstName:
     :type: string
+    :nillable: true
