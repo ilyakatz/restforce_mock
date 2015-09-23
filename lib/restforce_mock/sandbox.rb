@@ -12,6 +12,10 @@ module RestforceMock
       RestforceMock::Sandbox.add_object(name, id, values)
     end
 
+    def self.get_object(name, id)
+      storage[name][id]
+    end
+
     def self.update_object(name, id, attrs)
       current = storage[name][id]
       validate_all_present_fields!(current, attrs)
