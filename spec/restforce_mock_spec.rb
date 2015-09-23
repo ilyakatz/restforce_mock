@@ -93,6 +93,27 @@ describe RestforceMock do
       end
     end
 
+    describe "api_patch" do
+      it "validates required fields" do
+        id = "HGUKK674J79HjsH"
+        values = {
+          Name: "Name here",
+          Program__c: "1234",
+          Section_Name__c: "12345"
+        }
+        RestforceMock::Sandbox.add_object("Object__c", id, values)
+
+        new_values = {
+          Name: "New Name",
+          Program__c: "91233",
+        }
+        client.api_patch("/sobjects/Object__c/#{id}", new_values)
+        o = RestforceMock::Sandbox.get_object("Object__c", id)
+        expect(o[:Program__c]).to eq("91233")
+        expect(o[:Name]).to eq("New Name")
+      end
+    end
+
     describe "api_post" do
       it "mock out POST request" do
         values = { Name: "Name here" }
@@ -118,15 +139,6 @@ describe RestforceMock do
           /REQUIRED_FIELD_MISSING: Required fields are missing: \[:Id, :Program__c, :Section_Name__c\]/
         end
 
-        it "validates required fields" do
-          values = {
-            Name: "Name here",
-            Id: "1234",
-            Program__c: "1234",
-            Section_Name__c: "12345"
-          }
-          client.api_post("/sobjects/Object__c", values)
-        end
       end
 
       context "errors on required are disabled" do
