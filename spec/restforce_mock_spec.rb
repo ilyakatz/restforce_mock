@@ -115,6 +115,18 @@ describe RestforceMock do
         /REQUIRED_FIELD_MISSING: Required fields are missing: \["Id\", \"Program__c\", \"Section_Name__c\"\]/
       end
 
+      it "doesn't validate required fields" do
+        RestforceMock.configure do |config|
+          config.schema_file = "spec/fixtures/required_schema.yml"
+          config.error_on_required = false
+        end
+
+        values = { Name: "Name here" }
+        expect {
+          client.api_post("/sobjects/Object__c", values)
+        }.not_to raise_error
+      end
+
     end
   end
 

@@ -26,6 +26,7 @@ module RestforceMock
 
     def validate_requires!(sobject, attrs)
       return unless RestforceMock.configuration.schema_file
+      return unless RestforceMock.configuration.error_on_required
 
       object_schema = schema[sobject]
       required = object_schema.select{|k,v|!v[:nillable]}.collect{|k,v|k}
