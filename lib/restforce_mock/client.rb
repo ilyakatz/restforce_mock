@@ -34,7 +34,7 @@ module RestforceMock
         collect{|k,v|k}.
         collect(&:to_sym)
 
-      missing = required - attrs.keys
+      missing = required - attrs.keys - RestforceMock.configuration.required_exclusions
       if missing.length > 0
         raise Faraday::Error::ResourceNotFound.new(
           "REQUIRED_FIELD_MISSING: Required fields are missing: #{missing}")

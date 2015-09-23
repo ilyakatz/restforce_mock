@@ -136,7 +136,7 @@ describe RestforceMock do
           expect {
             client.api_post("/sobjects/Object__c", values)
           }.to raise_error Faraday::ResourceNotFound,
-          /REQUIRED_FIELD_MISSING: Required fields are missing: \[:Id, :Program__c, :Section_Name__c\]/
+          /REQUIRED_FIELD_MISSING: Required fields are missing: \[:Program__c, :Section_Name__c\]/
         end
 
       end
