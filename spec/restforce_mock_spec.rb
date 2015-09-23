@@ -103,28 +103,47 @@ describe RestforceMock do
         expect(s["Contact"][id]).to eq values
       end
 
-      it "validates required fields" do
-        RestforceMock.configure do |config|
-          config.schema_file = "spec/fixtures/required_schema.yml"
+      context "errors on required is enabled" do
+        before do
+          RestforceMock.configure do |config|
+            config.schema_file = "spec/fixtures/required_schema.yml"
+          end
         end
 
-        values = { Name: "Name here" }
-        expect {
+        it "validates required fields" do
+          values = { Name: "Name here" }
+          expect {
+            client.api_post("/sobjects/Object__c", values)
+          }.to raise_error Faraday::ResourceNotFound,
+          /REQUIRED_FIELD_MISSING: Required fields are missing: \[:Id, :Program__c, :Section_Name__c\]/
+        end
+
+        it "validates required fields" do
+          values = {
+            Name: "Name here",
+            Id: "1234",
+            Program__c: "1234",
+            Section_Name__c: "12345"
+          }
           client.api_post("/sobjects/Object__c", values)
-        }.to raise_error Faraday::ResourceNotFound,
-        /REQUIRED_FIELD_MISSING: Required fields are missing: \["Id\", \"Program__c\", \"Section_Name__c\"\]/
+        end
       end
 
-      it "doesn't validate required fields" do
-        RestforceMock.configure do |config|
-          config.schema_file = "spec/fixtures/required_schema.yml"
-          config.error_on_required = false
+      context "errors on required are disabled" do
+        before do
+          RestforceMock.configure do |config|
+            config.schema_file = "spec/fixtures/required_schema.yml"
+            config.error_on_required = false
+          end
         end
 
-        values = { Name: "Name here" }
-        expect {
-          client.api_post("/sobjects/Object__c", values)
-        }.not_to raise_error
+        it "doesn't validate required fields" do
+
+          values = { Name: "Name here" }
+          expect {
+            client.api_post("/sobjects/Object__c", values)
+          }.not_to raise_error
+        end
       end
 
     end

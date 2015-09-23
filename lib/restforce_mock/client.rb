@@ -29,7 +29,10 @@ module RestforceMock
       return unless RestforceMock.configuration.error_on_required
 
       object_schema = schema[sobject]
-      required = object_schema.select{|k,v|!v[:nillable]}.collect{|k,v|k}
+      required = object_schema.
+        select{|k,v|!v[:nillable]}.
+        collect{|k,v|k}.
+        collect(&:to_sym)
 
       missing = required - attrs.keys
       if missing.length > 0
