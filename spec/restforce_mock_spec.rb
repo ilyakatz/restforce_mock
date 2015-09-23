@@ -7,12 +7,28 @@ describe RestforceMock do
     before do
       RestforceMock.reset
     end
+
     it "set schema file" do
       RestforceMock.configure do |config|
         config.schema_file = "tmp"
       end
 
       expect( RestforceMock.configuration.schema_file ).to eq "tmp"
+    end
+
+    describe "error_on_required" do
+
+      it "set to true" do
+        RestforceMock.configure do |config|
+          config.error_on_required = true
+        end
+
+        expect( RestforceMock.configuration.error_on_required ).to eq true
+      end
+
+      it "sets to true by default" do
+        expect( RestforceMock.configuration.error_on_required ).to eq true
+      end
     end
 
     it "doesn't set schema file by default" do
@@ -88,14 +104,17 @@ describe RestforceMock do
       end
 
       it "validates required fields" do
-        RestforceMock::Sandbox.add_required(
-          "Object__c", [:Section_Name__c, :Program__c ])
+        RestforceMock.configure do |config|
+          config.schema_file = "spec/fixtures/required_schema.yml"
+        end
 
         values = { Name: "Name here" }
         expect {
           client.api_post("/sobjects/Object__c", values)
-        }.to raise_error Faraday::ResourceNotFound, /Required fields are missing/
+        }.to raise_error Faraday::ResourceNotFound,
+        /REQUIRED_FIELD_MISSING: Required fields are missing: \["Id\", \"Program__c\", \"Section_Name__c\"\]/
       end
+
     end
   end
 

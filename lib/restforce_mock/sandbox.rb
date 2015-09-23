@@ -8,12 +8,6 @@ module RestforceMock
       storage[name].merge!({ id  => values })
     end
 
-    def self.add_required(name, keys)
-      if keys
-        storage[:required][name] = keys
-      end
-    end
-
     def add_object(name, id, values)
       RestforceMock::Sandbox.add_object(name, id, values)
     end
@@ -48,9 +42,6 @@ module RestforceMock
 
     def self.initialize
       storage = Hash.new do |hash, object|
-        hash[object]={}
-      end
-      storage[:required] = Hash.new do |hash, object|
         hash[object]={}
       end
       storage[:schema] = Hash.new do |hash, object|

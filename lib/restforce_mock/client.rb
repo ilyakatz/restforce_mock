@@ -25,9 +25,12 @@ module RestforceMock
     end
 
     def validate_requires!(sobject, attrs)
-      return unless RestforceMock::Sandbox.storage[:required][sobject]
+      return unless RestforceMock.configuration.schema_file
 
-      missing = RestforceMock::Sandbox.storage[:required][sobject] - attrs.keys
+      object_schema = schema[sobject]
+      required = object_schema.select{|k,v|!v[:nillable]}.collect{|k,v|k}
+
+      missing = required - attrs.keys
       if missing.length > 0
         raise Faraday::Error::ResourceNotFound.new(
           "REQUIRED_FIELD_MISSING: Required fields are missing: #{missing}")
@@ -36,11 +39,16 @@ module RestforceMock
 
     def validate_presence!(object, id)
       unless RestforceMock::Sandbox.storage[object][id]
-        raise Faraday::Error::ResourceNotFound.new("Provided external ID field does not exist or is not accessible: #{id}")
+        msg = "Provided external ID field does not exist or is not accessible: #{id}"
+        raise Faraday::Error::ResourceNotFound.new(msg)
       end
     end
 
     private
+
+    def schema
+      RestforceMock::SchemaManager.new.load_schema(RestforceMock.configuration.schema_file)
+    end
 
     class Body
       def initialize(id)
