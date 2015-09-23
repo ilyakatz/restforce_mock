@@ -6,8 +6,12 @@ end
 module RestforceMock
   class SchemaManager
 
-    def initialize(client = ::Restforce.new )
+    def initialize(client = default_client  )
       @client = client
+    end
+
+    def default_client
+      ::Restforce.new
     end
 
     # Get schema for Salesforce Object
