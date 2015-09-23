@@ -17,18 +17,18 @@ describe RestforceMock::SchemaManager do
     it "loads file" do
       location = "#{File.dirname(__FILE__)}/../fixtures/schema.yml"
       s = RestforceMock::SchemaManager.new.load_schema(location)
-      expect(s["Contact"]["Id"]).to eq({:type=>"id", :nillable=>false})
+      expect(s["Contact"]["Id"]).to eq({:type=>"id", :required=>false})
       expect(s["Contact"]["IsDeleted"]).to eq({
-        :type=>"boolean", :nillable=>false
+        :type=>"boolean", :required=>false
       })
       expect(s["Contact"]["MasterRecordId"]).to eq({
-        :type=>"reference", :nillable=>true
+        :type=>"reference", :required=>true
       })
       expect(s["Contact"]["AccountId"]).to eq({
-        :type=>"reference", :nillable=>true
+        :type=>"reference", :required=>true
       })
       expect(s["Contact"]["FirstName"]).to eq({
-        :type=>"string", :nillable=>true
+        :type=>"string", :required=>true
       })
     end
   end

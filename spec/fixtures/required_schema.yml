@@ -2,10 +2,10 @@
 Object__c:
   Id:
     :type: id
-    :nillable: false
+    :required: true
   Program__c:
     :type: boolean
-    :nillable: false
+    :required: true
   Section_Name__c:
     :type: reference
-    :nillable: false
+    :required: true

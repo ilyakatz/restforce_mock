@@ -27,7 +27,8 @@ module RestforceMock
       s["fields"].each do |field|
         object_schema[field["name"]]= {
           type: field["type"],
-          nillable: field["nillable"]
+          # http://salesforce.stackexchange.com/questions/25233/is-there-a-way-to-find-required-fields-on-an-objects
+          required: field["createable"] && !field["nillable"] && !field["defaultedOnCreate"]
         }
       end
       object_schema

@@ -30,7 +30,7 @@ module RestforceMock
 
       object_schema = schema[sobject]
       required = object_schema.
-        select{|k,v|!v[:nillable]}.
+        select{|k,v|v[:required]}.
         collect{|k,v|k}.
         collect(&:to_sym)
 
