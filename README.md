@@ -40,6 +40,7 @@ This will direct all calls to `Restforce` to `RestforceMock`. Test as usual.
 RestforceMock.configure do |config|
   config.schema_file = "spec/fixtures/schema.yml"
   config.error_on_required = true  # raise error if required field is not set
+  config.required_exclusions = [:LastModifiedById ...] # fields that should not be considered required
 end
 ```
 
