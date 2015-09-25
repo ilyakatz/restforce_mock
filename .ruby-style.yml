@@ -31,7 +31,7 @@ Style/AccessModifierIndentation:
   - indent
 Style/AlignHash:
   Description: Align the elements of a hash literal if they span more than one line.
-  Enabled: true
+  Enabled: false
   EnforcedHashRocketStyle: key
   EnforcedColonStyle: key
   EnforcedLastArgumentHashStyle: always_inspect
@@ -51,7 +51,7 @@ Style/AlignParameters:
 Style/AndOr:
   Description: Use &&/|| instead of and/or.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-and-or-or
-  Enabled: true
+  Enabled: false
   EnforcedStyle: always
   SupportedStyles:
   - always
@@ -66,7 +66,7 @@ Style/BarePercentLiterals:
   - bare_percent
 Style/BracesAroundHashParameters:
   Description: Enforce braces style around hash parameters.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: no_braces
   SupportedStyles:
   - braces
@@ -98,7 +98,7 @@ Style/ClassCheck:
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
-  Enabled: true
+  Enabled: false
   PreferredMethods:
     collect: map
     collect!: map!
@@ -138,7 +138,7 @@ Style/EmptyLinesAroundBlockBody:
   - no_empty_lines
 Style/EmptyLinesAroundClassBody:
   Description: Keeps track of empty lines around class bodies.
-  Enabled: true
+  Enabled: false
   EnforcedStyle: no_empty_lines
   SupportedStyles:
   - empty_lines
@@ -211,7 +211,7 @@ Style/IfUnlessModifier:
   Description: Favor modifier if/unless usage when you have a single-line body.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier
   Enabled: false
-  MaxLineLength: 100
+  MaxLineLength: 80
 Style/IndentationWidth:
   Description: Use 2 spaces for indentation.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#spaces-indentation
@@ -365,7 +365,7 @@ Style/SingleLineMethods:
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-string-literals
-  Enabled: true
+  Enabled: false
   EnforcedStyle: double_quotes
   SupportedStyles:
   - single_quotes
@@ -373,14 +373,14 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Description: Checks if uses of quotes inside expressions in interpolated strings
     match the configured preference.
-  Enabled: true
+  Enabled: false
   EnforcedStyle: single_quotes
   SupportedStyles:
   - single_quotes
   - double_quotes
 Style/SpaceAroundBlockParameters:
   Description: Checks the spacing inside and after block parameters pipes.
-  Enabled: true
+  Enabled: false
   EnforcedStyleInsidePipes: no_space
   SupportedStyles:
   - space
@@ -405,7 +405,7 @@ Style/SpaceInsideBlockBraces:
   Description: Checks that block braces have or don't have surrounding space. For
     blocks taking parameters, checks that the left brace has or doesn't have trailing
     space.
-  Enabled: true
+  Enabled: false
   EnforcedStyle: space
   SupportedStyles:
   - space
@@ -415,7 +415,7 @@ Style/SpaceInsideBlockBraces:
 Style/SpaceInsideHashLiteralBraces:
   Description: Use spaces inside hash literal braces - or don't.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#spaces-operators
-  Enabled: true
+  Enabled: false
   EnforcedStyle: space
   EnforcedStyleForEmptyBraces: no_space
   SupportedStyles:
@@ -599,7 +599,7 @@ Style/InlineComment:
 Style/MethodCalledOnDoEndBlock:
   Description: Avoid chaining a method call on a do...end block.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#single-line-blocks
-  Enabled: false
+  Enabled: true
 Style/SymbolArray:
   Description: Use %i or %I for arrays of symbols.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-i
@@ -649,7 +649,7 @@ Style/Blocks:
   Description: Avoid using {...} for multi-line blocks (multiline chaining is always
     ugly). Prefer {...} over do...end for single-line blocks.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#single-line-blocks
-  Enabled: true
+  Enabled: false
 Style/CaseEquality:
   Description: Avoid explicit use of the case equality operator(===).
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-case-equality
@@ -782,7 +782,7 @@ Style/MultilineIfThen:
 Style/MultilineTernaryOperator:
   Description: 'Avoid multi-line ?: (the ternary operator); use if/unless instead.'
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-multiline-ternary
-  Enabled: true
+  Enabled: false
 Style/NegatedIf:
   Description: Favor unless over if for negative conditions (or control flow or).
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#unless-for-negatives
@@ -843,7 +843,7 @@ Style/SelfAssignment:
 Style/SingleSpaceBeforeFirstArg:
   Description: Checks that exactly one space is used between a method name and the
     first argument for method calls without parentheses.
-  Enabled: true
+  Enabled: false
 Style/SpaceAfterColon:
   Description: Use spaces after colons.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#spaces-operators
@@ -873,7 +873,7 @@ Style/SpaceBeforeComma:
   Enabled: true
 Style/SpaceBeforeComment:
   Description: Checks for missing space between code and a comment on the same line.
-  Enabled: true
+  Enabled: false
 Style/SpaceBeforeSemicolon:
   Description: No spaces before semicolons.
   Enabled: true
@@ -887,11 +887,11 @@ Style/SpaceBeforeModifierKeyword:
 Style/SpaceInsideBrackets:
   Description: No spaces after [ or before ].
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-spaces-braces
-  Enabled: true
+  Enabled: false
 Style/SpaceInsideParens:
   Description: No spaces after ( or before ).
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-spaces-braces
-  Enabled: true
+  Enabled: false
 Style/SpaceInsideRangeLiteral:
   Description: No spaces inside range literals.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-space-inside-range-literals

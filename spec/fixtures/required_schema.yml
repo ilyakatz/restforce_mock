@@ -1,0 +1,11 @@
+---
+Object__c:
+  Id:
+    :type: id
+    :required: true
+  Program__c:
+    :type: boolean
+    :required: true
+  Section_Name__c:
+    :type: reference
+    :required: true

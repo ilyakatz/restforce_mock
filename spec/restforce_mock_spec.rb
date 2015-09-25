@@ -2,8 +2,44 @@ require 'spec_helper'
 
 describe RestforceMock do
   let(:client) { RestforceMock::Client.new }
-  it 'has a version number' do
-    expect(RestforceMock::VERSION).not_to be nil
+
+  describe "#configure" do
+    before do
+      RestforceMock.reset
+    end
+
+    it "set schema file" do
+      RestforceMock.configure do |config|
+        config.schema_file = "tmp"
+      end
+
+      expect( RestforceMock.configuration.schema_file ).to eq "tmp"
+    end
+
+    describe "error_on_required" do
+
+      it "set to true" do
+        RestforceMock.configure do |config|
+          config.error_on_required = true
+        end
+
+        expect( RestforceMock.configuration.error_on_required ).to eq true
+      end
+
+      it "sets to true by default" do
+        expect( RestforceMock.configuration.error_on_required ).to eq true
+      end
+    end
+
+    it "doesn't set schema file by default" do
+      expect( RestforceMock.configuration.schema_file ).to be_nil
+    end
+  end
+
+  describe "version" do
+    it 'has a version number' do
+      expect(RestforceMock::VERSION).not_to be nil
+    end
   end
 
   context do
@@ -57,6 +93,27 @@ describe RestforceMock do
       end
     end
 
+    describe "api_patch" do
+      it "validates required fields" do
+        id = "HGUKK674J79HjsH"
+        values = {
+          Name: "Name here",
+          Program__c: "1234",
+          Section_Name__c: "12345"
+        }
+        RestforceMock::Sandbox.add_object("Object__c", id, values)
+
+        new_values = {
+          Name: "New Name",
+          Program__c: "91233",
+        }
+        client.api_patch("/sobjects/Object__c/#{id}", new_values)
+        o = RestforceMock::Sandbox.get_object("Object__c", id)
+        expect(o[:Program__c]).to eq("91233")
+        expect(o[:Name]).to eq("New Name")
+      end
+    end
+
     describe "api_post" do
       it "mock out POST request" do
         values = { Name: "Name here" }
@@ -67,15 +124,40 @@ describe RestforceMock do
         expect(s["Contact"][id]).to eq values
       end
 
-      it "validates required fields" do
-        RestforceMock::Sandbox.add_required(
-          "Object__c", [:Section_Name__c, :Program__c ])
+      context "errors on required is enabled" do
+        before do
+          RestforceMock.configure do |config|
+            config.schema_file = "spec/fixtures/required_schema.yml"
+          end
+        end
 
-        values = { Name: "Name here" }
-        expect {
-          client.api_post("/sobjects/Object__c", values)
-        }.to raise_error Faraday::ResourceNotFound, /Required fields are missing/
+        it "validates required fields" do
+          values = { Name: "Name here" }
+          expect {
+            client.api_post("/sobjects/Object__c", values)
+          }.to raise_error Faraday::ResourceNotFound,
+          /REQUIRED_FIELD_MISSING: Required fields are missing: \[:Program__c, :Section_Name__c\]/
+        end
+
       end
+
+      context "errors on required are disabled" do
+        before do
+          RestforceMock.configure do |config|
+            config.schema_file = "spec/fixtures/required_schema.yml"
+            config.error_on_required = false
+          end
+        end
+
+        it "doesn't validate required fields" do
+
+          values = { Name: "Name here" }
+          expect {
+            client.api_post("/sobjects/Object__c", values)
+          }.not_to raise_error
+        end
+      end
+
     end
   end
 

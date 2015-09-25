@@ -34,6 +34,16 @@ Restforce::Client = RestforceMock::Client
 
 This will direct all calls to `Restforce` to `RestforceMock`. Test as usual.
 
+### Configuration
+
+```ruby
+RestforceMock.configure do |config|
+  config.schema_file = "spec/fixtures/schema.yml"
+  config.error_on_required = true  # raise error if required field is not set
+  config.required_exclusions = [:LastModifiedById ...] # fields that should not be considered required
+end
+```
+
 ### Mimicking Salesforce data
 
 To mimic Salesforce database, add some data to the `RestfoceMock` sandbox
@@ -53,13 +63,6 @@ after completion of tests make sure to clean up if necessary
 
 ```ruby
   RestforceMock::Sandbox.reset!
-```
-
-#### Required fields
-
-```ruby
-   RestforceMock::Sandbox.add_required(
-    "Object__c", [:Section_Name__c, :Program__c ])
 ```
 
 ## Development
