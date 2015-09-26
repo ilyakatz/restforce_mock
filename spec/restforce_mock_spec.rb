@@ -61,6 +61,35 @@ describe RestforceMock do
     end
 
     describe "api_patch" do
+
+      context "" do
+        before do
+          RestforceMock.configure do |config|
+            config.raise_on_schema_missing = true
+          end
+        end
+
+        after do
+          RestforceMock.configure do |config|
+            config.raise_on_schema_missing = nil
+          end
+        end
+
+        it "raises error if schema is missing" do
+          id = "HGUKK674J79HjsH"
+          values = {
+            Name: "Name here",
+            Program__c: "1234",
+            Section_Name__c: "12345"
+          }
+          RestforceMock::Sandbox.add_object("Object__c", id, values)
+
+          expect {
+            client.api_patch("/sobjects/Object__c/#{id}", values)
+          }.to raise_error /Schema file is not defined/
+        end
+      end
+
       it "validates required fields" do
         id = "HGUKK674J79HjsH"
         values = {
@@ -82,6 +111,28 @@ describe RestforceMock do
     end
 
     describe "api_post" do
+
+      context "" do
+        before do
+          RestforceMock.configure do |config|
+            config.raise_on_schema_missing = true
+          end
+        end
+
+        after do
+          RestforceMock.configure do |config|
+            config.raise_on_schema_missing = nil
+          end
+        end
+
+        it "raises error if schema is missing" do
+          expect {
+            values = { Name: "Name here" }
+            body = client.api_post("/sobjects/Contact", values)
+          }.to raise_error /Schema file is not defined/
+        end
+      end
+
       it "mock out POST request" do
         values = { Name: "Name here" }
         body = client.api_post("/sobjects/Contact", values)
