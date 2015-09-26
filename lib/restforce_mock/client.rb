@@ -12,6 +12,7 @@ module RestforceMock
       object=$1
       id=$2
       validate_presence!(object, id)
+      validate_schema!
       update_object(object, id, attrs)
     end
 
@@ -20,6 +21,7 @@ module RestforceMock
       sobject = $1
       id = SecureRandom.urlsafe_base64(13) #duplicates possible
       validate_requires!(sobject, attrs)
+      validate_schema!
       add_object(sobject, id, attrs)
       return Body.new(id)
     end
@@ -48,10 +50,20 @@ module RestforceMock
       end
     end
 
+    def validate_schema!
+      if RestforceMock.configuration.raise_on_schema_missing
+        raise "No schema for Salesforce object is available" unless schema
+      end
+    end
+
     private
 
     def schema
-      RestforceMock::SchemaManager.new.load_schema(RestforceMock.configuration.schema_file)
+      @schema ||=
+        begin
+          manager = RestforceMock::SchemaManager.new
+          manager.load_schema(RestforceMock.configuration.schema_file)
+        end
     end
 
     class Body
