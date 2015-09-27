@@ -4,6 +4,9 @@ module RestforceMock
     attr_writer :error_on_required
     attr_writer :required_exclusions
     attr_writer :raise_on_schema_missing
+    attr_accessor :objects_for_schema
+
+    attr_writer :objects_for_schema
 
     def error_on_required
       @error_on_required.nil? ?  true : @error_on_required
