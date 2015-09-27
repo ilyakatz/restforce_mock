@@ -62,32 +62,22 @@ describe RestforceMock do
 
     describe "api_patch" do
 
-      context "" do
-        before do
-          RestforceMock.configure do |config|
-            config.raise_on_schema_missing = true
-          end
-        end
+      it "raises error if schema is missing" do
+        expect(RestforceMock.configuration).to(
+          receive(:raise_on_schema_missing) { true }
+        )
 
-        after do
-          RestforceMock.configure do |config|
-            config.raise_on_schema_missing = nil
-          end
-        end
+        id = "HGUKK674J79HjsH"
+        values = {
+          Name: "Name here",
+          Program__c: "1234",
+          Section_Name__c: "12345"
+        }
+        RestforceMock::Sandbox.add_object("Object__c", id, values)
 
-        it "raises error if schema is missing" do
-          id = "HGUKK674J79HjsH"
-          values = {
-            Name: "Name here",
-            Program__c: "1234",
-            Section_Name__c: "12345"
-          }
-          RestforceMock::Sandbox.add_object("Object__c", id, values)
-
-          expect {
-            client.api_patch("/sobjects/Object__c/#{id}", values)
-          }.to raise_error /Schema file is not defined/
-        end
+        expect {
+          client.api_patch("/sobjects/Object__c/#{id}", values)
+        }.to raise_error /Schema file is not defined/
       end
 
       it "validates required fields" do
@@ -112,25 +102,15 @@ describe RestforceMock do
 
     describe "api_post" do
 
-      context "" do
-        before do
-          RestforceMock.configure do |config|
-            config.raise_on_schema_missing = true
-          end
-        end
+      it "raises error if schema is missing" do
+        expect(RestforceMock.configuration).to(
+          receive(:raise_on_schema_missing) { true }
+        )
 
-        after do
-          RestforceMock.configure do |config|
-            config.raise_on_schema_missing = nil
-          end
-        end
-
-        it "raises error if schema is missing" do
-          expect {
-            values = { Name: "Name here" }
-            body = client.api_post("/sobjects/Contact", values)
-          }.to raise_error /Schema file is not defined/
-        end
+        expect {
+          values = { Name: "Name here" }
+          body = client.api_post("/sobjects/Contact", values)
+        }.to raise_error /Schema file is not defined/
       end
 
       it "mock out POST request" do
