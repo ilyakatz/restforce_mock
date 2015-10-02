@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Mock for Restforce gem}
   spec.description   = %q{Mock for Restforce gem}
-  spec.homepage      = "https://github.com/ilyakatz"
+  spec.homepage      = "https://github.com/ilyakatz/restforce_mock"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
