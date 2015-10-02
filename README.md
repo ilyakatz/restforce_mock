@@ -1,4 +1,9 @@
-[![Build Status](https://travis-ci.org/ilyakatz/restforce_mock.svg?branch=master)](https://travis-ci.org/ilyakatz/restforce_mock)
+restforce_mock
+==============
+  - [![Build](http://img.shields.io/travis-ci/ilyakatz/restforce_mock.svg?style=flat-square)](https://travis-ci.org/ilyakatz/restforce_mock)
+  - [![Version](http://img.shields.io/gem/v/restforce_mock.svg?style=flat-square)](https://rubygems.org/gems/restforce_mock)
+  - [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+  - [![Dependencies](http://img.shields.io/gemnasium/r/restforce_mock.svg?style=flat-square)](https://gemnasium.com/ilyakatz/restforce_mock)
 
 # RestforceMock
 
