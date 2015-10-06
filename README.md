@@ -33,7 +33,7 @@ Or install it yourself as:
 To mock out Restforce global in your test environment
 
 ```ruby
-Restforce::Client = RestforceMock::Client
+Restforce = RestforceMock::Client
 ```
 
 This will direct all calls to `Restforce` to `RestforceMock`. Test as usual.
